@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wings Wednesday Leaderboard | Dojo Wings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Barlow', sans-serif;
+            min-height: 100vh;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 3.5rem;
+            color: #00d959;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: 'Anton', sans-serif;
+            font-size: 2rem;
+            color: #ffcc00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #888;
+            margin-top: 15px;
+            font-weight: 400;
+        }
+
+        .leaderboard {
+            background-color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .leaderboard-header {
+            background-color: #00d959;
+            padding: 20px 25px;
+            display: grid;
+            grid-template-columns: 80px 1fr 120px;
+            gap: 15px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .leaderboard-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 120px;
+            gap: 15px;
+            padding: 18px 25px;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            transition: background-color 0.2s ease;
+        }
+
+        .leaderboard-row:hover {
+            background-color: #2a2a2a;
+        }
+
+        .leaderboard-row:last-child {
+            border-bottom: none;
+        }
+
+        .rank {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.8rem;
+            color: #00d959;
+        }
+
+        .rank.gold {
+            color: #ffd700;
+        }
+
+        .rank.silver {
+            color: #c0c0c0;
+        }
+
+        .rank.bronze {
+            color: #cd7f32;
+        }
+
+        .player-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .player-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .player-date {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .wings-count {
+            font-family: 'Anton', sans-serif;
+            font-size: 2rem;
+            color: #ffcc00;
+            text-align: right;
+        }
+
+        .wings-label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-top: 2px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+        }
+
+        .footer-text {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footer-text a {
+            color: #00d959;
+            text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            padding: 25px;
+            background-color: #222;
+            border-radius: 8px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Anton', sans-serif;
+            font-size: 2.5rem;
+            color: #00d959;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+
+        .tab {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 15px 30px;
+            background-color: #333;
+            color: #888;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab:hover {
+            background-color: #444;
+            color: #fff;
+        }
+
+        .tab.active {
+            background-color: #00d959;
+            color: #fff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.5rem;
+            }
+
+            .leaderboard-header,
+            .leaderboard-row {
+                grid-template-columns: 60px 1fr 80px;
+                padding: 15px;
+                gap: 10px;
+            }
+
+            .rank {
+                font-size: 1.4rem;
+            }
+
+            .player-name {
+                font-size: 1rem;
+            }
+
+            .wings-count {
+                font-size: 1.5rem;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                font-size: 1rem;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">Dojo Wings</h1>
+            <h2 class="subtitle">Wings Wednesday</h2>
+            <p class="tagline">The ultimate wings challenge leaderboard</p>
+        </header>
+
+        <div class="tabs" role="tablist">
+            <button class="tab active" role="tab" aria-selected="true" aria-controls="chicken-panel" id="chicken-tab" onclick="switchTab('chicken')">🍗 Chicken</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="cauliflower-panel" id="cauliflower-tab" onclick="switchTab('cauliflower')">🥦 Cauliflower</button>
+        </div>
+
+        <div id="chicken-panel" class="tab-content active" role="tabpanel" aria-labelledby="chicken-tab">
+
+        <div class="leaderboard" role="table" aria-label="Chicken Wings Leaderboard">
+            <div class="leaderboard-header" role="row">
+                <span role="columnheader">Rank</span>
+                <span role="columnheader">Champion</span>
+                <span role="columnheader" class="text-right">Wings</span>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank gold" role="cell">#1</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Calum</span>
+                    <span class="player-date">December 2025</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="43 wings">43<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank silver" role="cell">#2</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Nathan</span>
+                    <span class="player-date">December 2025</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="42 wings">42<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank bronze" role="cell">#3</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Brandon</span>
+                    <span class="player-date">December 2025</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="39 wings">39<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#4</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Roscoe</span>
+                    <span class="player-date">December 2025</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="38 wings">38<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#5</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Michele</span>
+                    <span class="player-date">December 2025</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="31 wings">31<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#6</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">JJ</span>
+                    <span class="player-date">December 2025</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="30 wings">30<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#7</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Gav</span>
+                    <span class="player-date">December 2025</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="20 wings">20<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#8</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Matt</span>
+                    <span class="player-date">December 2025</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="unknown">?<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#9</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Artiom</span>
+                    <span class="player-date">December 2025</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="unknown">?<span class="wings-label">wings</span></div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">243</div>
+                <div class="stat-label">Total Wings</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">9</div>
+                <div class="stat-label">Challengers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">43</div>
+                <div class="stat-label">Record</div>
+            </div>
+        </div>
+        </div>
+
+        <div id="cauliflower-panel" class="tab-content" role="tabpanel" aria-labelledby="cauliflower-tab">
+        <div class="leaderboard" role="table" aria-label="Cauliflower Wings Leaderboard">
+            <div class="leaderboard-header" role="row">
+                <span role="columnheader">Rank</span>
+                <span role="columnheader">Champion</span>
+                <span role="columnheader" class="text-right">Wings</span>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank gold" role="cell">#1</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Robin</span>
+                    <span class="player-date">December 2025</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="23 wings">23<span class="wings-label">wings</span></div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">23</div>
+                <div class="stat-label">Total Wings</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">1</div>
+                <div class="stat-label">Challengers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">23</div>
+                <div class="stat-label">Record</div>
+            </div>
+        </div>
+        </div>
+
+        <footer>
+            <p class="footer-text">Every Wednesday. Unlimited wings. Eternal glory.</p>
+        </footer>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            var tabElement = document.getElementById(tabName + '-tab');
+            var panelElement = document.getElementById(tabName + '-panel');
+            
+            if (!tabElement || !panelElement) {
+                return;
+            }
+
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.setAttribute('aria-selected', 'false');
+            });
+            tabElement.classList.add('active');
+            tabElement.setAttribute('aria-selected', 'true');
+
+            // Update tab panels
+            document.querySelectorAll('.tab-content').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            panelElement.classList.add('active');
+        }
+    </script>
+</body>
+</html>
