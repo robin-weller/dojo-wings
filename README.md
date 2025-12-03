@@ -6,7 +6,7 @@
 
 A static HTML leaderboard inspired by Brew Dog's Wings Wednesday challenge. Features a dark, bold aesthetic with:
 
-- Dark background with blue and yellow accents
+- Dark background with teal and yellow accents
 - Bold sans-serif typography (Anton & Barlow fonts)
 - Responsive design for mobile and desktop
 - Gold, silver, and bronze highlighting for top 3 positions
