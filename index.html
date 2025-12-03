@@ -198,6 +198,45 @@
             text-align: right;
         }
 
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+
+        .tab {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 15px 30px;
+            background-color: #333;
+            color: #888;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab:hover {
+            background-color: #444;
+            color: #fff;
+        }
+
+        .tab.active {
+            background-color: #00a2ff;
+            color: #fff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         @media (max-width: 600px) {
             .logo {
                 font-size: 2.5rem;
@@ -230,6 +269,15 @@
                 flex-direction: column;
                 gap: 20px;
             }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                font-size: 1rem;
+                padding: 12px 20px;
+            }
         }
     </style>
 </head>
@@ -241,7 +289,14 @@
             <p class="tagline">The ultimate wings challenge leaderboard</p>
         </header>
 
-        <div class="leaderboard" role="table" aria-label="Wings Wednesday Leaderboard">
+        <div class="tabs" role="tablist">
+            <button class="tab active" role="tab" aria-selected="true" aria-controls="chicken-panel" id="chicken-tab" onclick="switchTab('chicken')">🍗 Chicken</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="cauliflower-panel" id="cauliflower-tab" onclick="switchTab('cauliflower')">🥦 Cauliflower</button>
+        </div>
+
+        <div id="chicken-panel" class="tab-content active" role="tabpanel" aria-labelledby="chicken-tab">
+
+        <div class="leaderboard" role="table" aria-label="Chicken Wings Leaderboard">
             <div class="leaderboard-header" role="row">
                 <span role="columnheader">Rank</span>
                 <span role="columnheader">Champion</span>
@@ -343,10 +398,141 @@
                 <div class="stat-label">Record</div>
             </div>
         </div>
+        </div>
+
+        <div id="cauliflower-panel" class="tab-content" role="tabpanel" aria-labelledby="cauliflower-tab">
+        <div class="leaderboard" role="table" aria-label="Cauliflower Wings Leaderboard">
+            <div class="leaderboard-header" role="row">
+                <span role="columnheader">Rank</span>
+                <span role="columnheader">Champion</span>
+                <span role="columnheader" class="text-right">Wings</span>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank gold" role="cell">#1</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Veggie Victor</span>
+                    <span class="player-date">November 2024</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="36 wings">36<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank silver" role="cell">#2</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Plant Power Pete</span>
+                    <span class="player-date">October 2024</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="32 wings">32<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank bronze" role="cell">#3</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Cauli Queen</span>
+                    <span class="player-date">September 2024</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="28 wings">28<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#4</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Floret Fred</span>
+                    <span class="player-date">November 2024</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="25 wings">25<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#5</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Green Goddess Grace</span>
+                    <span class="player-date">August 2024</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="22 wings">22<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#6</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Batter Boss Ben</span>
+                    <span class="player-date">October 2024</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="20 wings">20<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#7</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Crispy Caulene</span>
+                    <span class="player-date">September 2024</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="18 wings">18<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#8</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Vegan Vinnie</span>
+                    <span class="player-date">November 2024</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="16 wings">16<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#9</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Tempura Tina</span>
+                    <span class="player-date">October 2024</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="15 wings">15<span class="wings-label">wings</span></div>
+            </div>
+            <div class="leaderboard-row" role="row">
+                <span class="rank" role="cell">#10</span>
+                <div class="player-info" role="cell">
+                    <span class="player-name">Buffalo Bites Bob</span>
+                    <span class="player-date">August 2024</span>
+                </div>
+                <div class="wings-count" role="cell" aria-label="14 wings">14<span class="wings-label">wings</span></div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">226</div>
+                <div class="stat-label">Total Wings</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">10</div>
+                <div class="stat-label">Challengers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">36</div>
+                <div class="stat-label">Record</div>
+            </div>
+        </div>
+        </div>
 
         <footer>
             <p class="footer-text">Every Wednesday. Unlimited wings. Eternal glory.</p>
         </footer>
     </div>
+
+    <script>
+        function switchTab(tabName) {
+            var tabElement = document.getElementById(tabName + '-tab');
+            var panelElement = document.getElementById(tabName + '-panel');
+            
+            if (!tabElement || !panelElement) {
+                return;
+            }
+
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.setAttribute('aria-selected', 'false');
+            });
+            tabElement.classList.add('active');
+            tabElement.setAttribute('aria-selected', 'true');
+
+            // Update tab panels
+            document.querySelectorAll('.tab-content').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            panelElement.classList.add('active');
+        }
+    </script>
 </body>
 </html>
